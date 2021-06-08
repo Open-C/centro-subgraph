@@ -1,0 +1,621 @@
+[
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_store", "type": "address" },
+      { "internalType": "address", "name": "_siphonAddress", "type": "address" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "wallet",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "pool",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "tok1",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "tok2",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "liquidityAdded",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amt1",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amt2",
+        "type": "uint256"
+      }
+    ],
+    "name": "AddedLiquidity",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_token",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "DepositMade",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "wallet",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "pool",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "tok1",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "tok2",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "liquidityRemoved",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amt1",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amt2",
+        "type": "uint256"
+      }
+    ],
+    "name": "RemovedLiquidity",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "wallet",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "tokIn",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "tokOut",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amtIn",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amtOut",
+        "type": "uint256"
+      }
+    ],
+    "name": "SwapMade",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_sender",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_receiver",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_token",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "TransferMade",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_token",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "WithdrawMade",
+    "type": "event"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "lp", "type": "address" }],
+    "name": "_getPoolAddress",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_tok1", "type": "address" },
+      { "internalType": "address", "name": "_tok2", "type": "address" }
+    ],
+    "name": "_getUbeReserves",
+    "outputs": [
+      { "internalType": "uint256", "name": "_amt1", "type": "uint256" },
+      { "internalType": "uint256", "name": "_amt2", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "toAdd", "type": "address" }
+    ],
+    "name": "addAdmin",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_tok1", "type": "address" },
+      { "internalType": "address", "name": "_tok2", "type": "address" },
+      { "internalType": "uint256", "name": "_amt1", "type": "uint256" },
+      { "internalType": "uint256", "name": "_amt2", "type": "uint256" },
+      { "internalType": "uint256", "name": "_walletID", "type": "uint256" }
+    ],
+    "name": "addLiquidity",
+    "outputs": [
+      { "internalType": "uint256", "name": "amount1", "type": "uint256" },
+      { "internalType": "uint256", "name": "amount2", "type": "uint256" },
+      { "internalType": "uint256", "name": "liquidity", "type": "uint256" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_baseToken", "type": "address" },
+      { "internalType": "uint256", "name": "_baseAmount", "type": "uint256" },
+      { "internalType": "address", "name": "_tok1", "type": "address" },
+      { "internalType": "address", "name": "_tok2", "type": "address" },
+      { "internalType": "uint256", "name": "_walletID", "type": "uint256" }
+    ],
+    "name": "addLiquidityFromOne",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "", "type": "address" },
+      { "internalType": "uint256", "name": "", "type": "uint256" }
+    ],
+    "name": "addressToWalletIDs",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_amount", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "_maxSellAmount",
+        "type": "uint256"
+      },
+      { "internalType": "uint256", "name": "_walletID", "type": "uint256" }
+    ],
+    "name": "buyCelo",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_pair", "type": "address" },
+      { "internalType": "uint256", "name": "_walletId", "type": "uint256" }
+    ],
+    "name": "claimRewardFromPair",
+    "outputs": [
+      { "internalType": "uint256", "name": "_earned", "type": "uint256" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_tok1", "type": "address" },
+      { "internalType": "address", "name": "_tok2", "type": "address" },
+      { "internalType": "uint256", "name": "_walletId", "type": "uint256" }
+    ],
+    "name": "claimRewardFromTokens",
+    "outputs": [
+      { "internalType": "uint256", "name": "_earned", "type": "uint256" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_pair", "type": "address" },
+      { "internalType": "uint256", "name": "_walletId", "type": "uint256" }
+    ],
+    "name": "compoundFarmPair",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_tok1", "type": "address" },
+      { "internalType": "address", "name": "_tok2", "type": "address" },
+      { "internalType": "uint256", "name": "_walletId", "type": "uint256" }
+    ],
+    "name": "compoundFarmTokens",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_token", "type": "address" },
+      { "internalType": "uint256", "name": "_amount", "type": "uint256" },
+      { "internalType": "uint256", "name": "_walletID", "type": "uint256" }
+    ],
+    "name": "deposit",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_user", "type": "address" }
+    ],
+    "name": "getAccountIDs",
+    "outputs": [
+      { "internalType": "uint256[]", "name": "", "type": "uint256[]" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAccountOverview",
+    "outputs": [
+      { "internalType": "address[]", "name": "", "type": "address[]" },
+      { "internalType": "uint256[]", "name": "", "type": "uint256[]" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_token", "type": "address" },
+      { "internalType": "uint256", "name": "_walletID", "type": "uint256" }
+    ],
+    "name": "getMoolaBalance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "currentATokenBalance",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_tok1", "type": "address" },
+      { "internalType": "address", "name": "_tok2", "type": "address" }
+    ],
+    "name": "getPoolAddress",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_walletID", "type": "uint256" }
+    ],
+    "name": "getWallet",
+    "outputs": [
+      { "internalType": "string", "name": "", "type": "string" },
+      { "internalType": "address", "name": "", "type": "address" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_walletID", "type": "uint256" }
+    ],
+    "name": "getWalletAddress",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_walletID", "type": "uint256" }
+    ],
+    "name": "getWalletBasis",
+    "outputs": [
+      { "internalType": "address[]", "name": "tokens", "type": "address[]" },
+      { "internalType": "uint256[]", "name": "balances", "type": "uint256[]" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_tokIn", "type": "address" },
+      { "internalType": "address", "name": "_tokOut", "type": "address" },
+      { "internalType": "uint256", "name": "_amtIn", "type": "uint256" },
+      { "internalType": "uint256", "name": "_minOut", "type": "uint256" },
+      { "internalType": "uint256", "name": "_walletID", "type": "uint256" }
+    ],
+    "name": "makeSwap",
+    "outputs": [
+      { "internalType": "uint256", "name": "_received", "type": "uint256" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_token", "type": "address" },
+      { "internalType": "uint256", "name": "_amount", "type": "uint256" },
+      { "internalType": "uint256", "name": "_walletID", "type": "uint256" }
+    ],
+    "name": "moolaDeposit",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_token", "type": "address" },
+      { "internalType": "uint256", "name": "_amount", "type": "uint256" },
+      { "internalType": "uint256", "name": "_walletID", "type": "uint256" }
+    ],
+    "name": "moolaWithdraw",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "string", "name": "name", "type": "string" }],
+    "name": "newWallet",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_baseToken", "type": "address" },
+      { "internalType": "uint256", "name": "_baseAmount", "type": "uint256" },
+      { "internalType": "address", "name": "_tok1", "type": "address" },
+      { "internalType": "address", "name": "_tok2", "type": "address" },
+      { "internalType": "uint256", "name": "_walletId", "type": "uint256" }
+    ],
+    "name": "oneTokenToFarm",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_walletID", "type": "uint256" }
+    ],
+    "name": "persistWallet",
+    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_tok1", "type": "address" },
+      { "internalType": "address", "name": "_tok2", "type": "address" },
+      { "internalType": "uint256", "name": "_liquidity", "type": "uint256" },
+      { "internalType": "uint256", "name": "_min1", "type": "uint256" },
+      { "internalType": "uint256", "name": "_min2", "type": "uint256" },
+      { "internalType": "uint256", "name": "_walletID", "type": "uint256" }
+    ],
+    "name": "removeLiquidity",
+    "outputs": [{ "internalType": "bytes", "name": "", "type": "bytes" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_amount", "type": "uint256" },
+      { "internalType": "uint256", "name": "_minBuyAmount", "type": "uint256" },
+      { "internalType": "uint256", "name": "_walletID", "type": "uint256" }
+    ],
+    "name": "sellCelo",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_token", "type": "address" },
+      { "internalType": "uint256", "name": "_receiver", "type": "uint256" },
+      { "internalType": "uint256", "name": "_amount", "type": "uint256" },
+      { "internalType": "uint256", "name": "_walletID", "type": "uint256" }
+    ],
+    "name": "send",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_pair", "type": "address" },
+      { "internalType": "uint256", "name": "_amount", "type": "uint256" },
+      { "internalType": "uint256", "name": "_walletId", "type": "uint256" }
+    ],
+    "name": "stakeLiquidity",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_tok1", "type": "address" },
+      { "internalType": "address", "name": "_tok2", "type": "address" },
+      { "internalType": "uint256", "name": "_amt1", "type": "uint256" },
+      { "internalType": "uint256", "name": "_amt2", "type": "uint256" },
+      { "internalType": "uint256", "name": "_walletId", "type": "uint256" }
+    ],
+    "name": "twoTokensToFarm",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_tok1", "type": "address" },
+      { "internalType": "address", "name": "_tok2", "type": "address" },
+      { "internalType": "uint256", "name": "_amt", "type": "uint256" },
+      { "internalType": "uint256", "name": "_walletId", "type": "uint256" }
+    ],
+    "name": "ubeStakeTokens",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "walletIDToWallet",
+    "outputs": [
+      { "internalType": "string", "name": "name", "type": "string" },
+      { "internalType": "string", "name": "role", "type": "string" },
+      { "internalType": "address", "name": "addr", "type": "address" },
+      { "internalType": "address", "name": "owner", "type": "address" },
+      { "internalType": "uint256", "name": "id", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_token", "type": "address" },
+      { "internalType": "uint256", "name": "_amount", "type": "uint256" },
+      { "internalType": "uint256", "name": "_walletID", "type": "uint256" }
+    ],
+    "name": "withdraw",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_pair", "type": "address" },
+      { "internalType": "uint256", "name": "_amount", "type": "uint256" },
+      { "internalType": "uint256", "name": "_walletId", "type": "uint256" }
+    ],
+    "name": "withdrawLiquidityPair",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
