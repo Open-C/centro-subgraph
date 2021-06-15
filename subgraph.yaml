@@ -1,10 +1,12 @@
 specVersion: 0.0.2
+description: Centro is a defi aggregator build on Celo
+repository: https://github.com/Open-C/centro-subgraph
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: CentroMain
-    network: mainnet
+    network: celo
     source:
       address: "0x3eF2A5f702c9aBcD2E9D4Db773522a3c9889EF44"
       abi: CentroMain

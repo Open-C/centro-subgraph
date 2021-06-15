@@ -11,6 +11,14 @@
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.20.0",
-    "@graphprotocol/graph-ts": "0.20.0"
+    "@graphprotocol/graph-ts": "0.20.0",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
+    "eslint": "^6.2.2",
+    "eslint-config-prettier": "^6.1.0",
+    "husky": ">=6",
+    "lint-staged": ">=10",
+    "prettier": "^2.2.1",
+    "typescript": "^3.5.2"
   }
 }
