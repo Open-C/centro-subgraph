@@ -5,14 +5,21 @@ type ExampleEntity @entity {
   pool: Bytes! # address
 }
 
-type Asset {
-  id: ID!
+type Asset @entity {
+  id: ID! # TokenAddress_OwnerAddress
   address: Bytes!
   name: String
-  totalVolume: BigDecimal!
+  totalVolume: BigInt!
 }
 
-type CentroDayData {
+type CentroData @entity {
+  id: ID! #CentroMain Address
+  totalAssets: [Asset]!
+  users: BigInt!
+  wallets: BigInt!
+}
+
+type CentroDayData @entity {
   id: ID!
   date: Int!
   totalAssets: [Asset]!
@@ -20,7 +27,7 @@ type CentroDayData {
   wallets: BigInt!
 }
 
-type CentroHourData {
+type CentroHourData @entity {
   id: ID!
   hourStartUnix: Int!
   totalAssets: [Asset]!

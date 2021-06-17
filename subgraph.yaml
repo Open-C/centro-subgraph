@@ -5,36 +5,27 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: CentroMain
+    name: EventEmitter
     network: celo
     source:
-      address: "0x3eF2A5f702c9aBcD2E9D4Db773522a3c9889EF44"
-      abi: CentroMain
+      address: "0x46a9E1a5aFdB8348943AAA24848E2Bd831197330"
+      abi: EventEmitter
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - AddedLiquidity
+        - WalletCreated
         - DepositMade
-        - RemovedLiquidity
-        - SwapMade
-        - TransferMade
-        - WithdrawMade
+        - WithdrawalMade
       abis:
-        - name: CentroMain
-          file: ./abis/CentroMain.json
+        - name: EventEmitter
+          file: ./abis/EventEmitter.json
       eventHandlers:
-        - event: AddedLiquidity(address,address,address,address,uint256,uint256,uint256)
-          handler: handleAddedLiquidity
+        - event: WalletCreated(address,address,bool)
+          handler: handleWalletCreated
         - event: DepositMade(address,address,uint256)
           handler: handleDepositMade
-        - event: RemovedLiquidity(address,address,address,address,uint256,uint256,uint256)
-          handler: handleRemovedLiquidity
-        - event: SwapMade(address,address,address,uint256,uint256)
-          handler: handleSwapMade
-        - event: TransferMade(address,address,address,uint256)
-          handler: handleTransferMade
-        - event: WithdrawMade(address,address,uint256)
+        - event: WithdrawalMade(address,address,uint256)
           handler: handleWithdrawMade
       file: ./src/mapping.ts

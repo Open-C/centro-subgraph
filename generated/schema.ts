@@ -69,3 +69,261 @@ export class ExampleEntity extends Entity {
     this.set("pool", Value.fromBytes(value));
   }
 }
+
+export class Asset extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Asset entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Asset entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Asset", id.toString(), this);
+  }
+
+  static load(id: string): Asset | null {
+    return store.get("Asset", id) as Asset | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get address(): Bytes {
+    let value = this.get("address");
+    return value.toBytes();
+  }
+
+  set address(value: Bytes) {
+    this.set("address", Value.fromBytes(value));
+  }
+
+  get name(): string | null {
+    let value = this.get("name");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set name(value: string | null) {
+    if (value === null) {
+      this.unset("name");
+    } else {
+      this.set("name", Value.fromString(value as string));
+    }
+  }
+
+  get totalVolume(): BigInt {
+    let value = this.get("totalVolume");
+    return value.toBigInt();
+  }
+
+  set totalVolume(value: BigInt) {
+    this.set("totalVolume", Value.fromBigInt(value));
+  }
+}
+
+export class CentroData extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save CentroData entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save CentroData entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("CentroData", id.toString(), this);
+  }
+
+  static load(id: string): CentroData | null {
+    return store.get("CentroData", id) as CentroData | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get totalAssets(): Array<string | null> {
+    let value = this.get("totalAssets");
+    return value.toStringArray();
+  }
+
+  set totalAssets(value: Array<string | null>) {
+    this.set("totalAssets", Value.fromStringArray(value));
+  }
+
+  get users(): BigInt {
+    let value = this.get("users");
+    return value.toBigInt();
+  }
+
+  set users(value: BigInt) {
+    this.set("users", Value.fromBigInt(value));
+  }
+
+  get wallets(): BigInt {
+    let value = this.get("wallets");
+    return value.toBigInt();
+  }
+
+  set wallets(value: BigInt) {
+    this.set("wallets", Value.fromBigInt(value));
+  }
+}
+
+export class CentroDayData extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save CentroDayData entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save CentroDayData entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("CentroDayData", id.toString(), this);
+  }
+
+  static load(id: string): CentroDayData | null {
+    return store.get("CentroDayData", id) as CentroDayData | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get date(): i32 {
+    let value = this.get("date");
+    return value.toI32();
+  }
+
+  set date(value: i32) {
+    this.set("date", Value.fromI32(value));
+  }
+
+  get totalAssets(): Array<string | null> {
+    let value = this.get("totalAssets");
+    return value.toStringArray();
+  }
+
+  set totalAssets(value: Array<string | null>) {
+    this.set("totalAssets", Value.fromStringArray(value));
+  }
+
+  get users(): BigInt {
+    let value = this.get("users");
+    return value.toBigInt();
+  }
+
+  set users(value: BigInt) {
+    this.set("users", Value.fromBigInt(value));
+  }
+
+  get wallets(): BigInt {
+    let value = this.get("wallets");
+    return value.toBigInt();
+  }
+
+  set wallets(value: BigInt) {
+    this.set("wallets", Value.fromBigInt(value));
+  }
+}
+
+export class CentroHourData extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save CentroHourData entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save CentroHourData entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("CentroHourData", id.toString(), this);
+  }
+
+  static load(id: string): CentroHourData | null {
+    return store.get("CentroHourData", id) as CentroHourData | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get hourStartUnix(): i32 {
+    let value = this.get("hourStartUnix");
+    return value.toI32();
+  }
+
+  set hourStartUnix(value: i32) {
+    this.set("hourStartUnix", Value.fromI32(value));
+  }
+
+  get totalAssets(): Array<string | null> {
+    let value = this.get("totalAssets");
+    return value.toStringArray();
+  }
+
+  set totalAssets(value: Array<string | null>) {
+    this.set("totalAssets", Value.fromStringArray(value));
+  }
+
+  get users(): BigInt {
+    let value = this.get("users");
+    return value.toBigInt();
+  }
+
+  set users(value: BigInt) {
+    this.set("users", Value.fromBigInt(value));
+  }
+
+  get wallets(): BigInt {
+    let value = this.get("wallets");
+    return value.toBigInt();
+  }
+
+  set wallets(value: BigInt) {
+    this.set("wallets", Value.fromBigInt(value));
+  }
+}
