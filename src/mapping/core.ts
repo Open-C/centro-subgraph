@@ -87,7 +87,7 @@ export function handleWithdrawalMade(event: WithdrawalMade): void {
     tokenAmount.minus
   );
   modifyAsset(
-    `${wallet.id}_${tokenAddr.toHexString()}`,
+    `${wallet.id}_${tokenAddr.toHexString()}_total`,
     tokenAddr,
     centroData.totalAssets,
     tokenAmount.minus
