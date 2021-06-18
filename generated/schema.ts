@@ -327,3 +327,203 @@ export class CentroHourData extends Entity {
     this.set("wallets", Value.fromBigInt(value));
   }
 }
+
+export class WalletDayData extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save WalletDayData entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save WalletDayData entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("WalletDayData", id.toString(), this);
+  }
+
+  static load(id: string): WalletDayData | null {
+    return store.get("WalletDayData", id) as WalletDayData | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get date(): i32 {
+    let value = this.get("date");
+    return value.toI32();
+  }
+
+  set date(value: i32) {
+    this.set("date", Value.fromI32(value));
+  }
+
+  get basis(): Array<string | null> {
+    let value = this.get("basis");
+    return value.toStringArray();
+  }
+
+  set basis(value: Array<string | null>) {
+    this.set("basis", Value.fromStringArray(value));
+  }
+
+  get assets(): Array<string | null> {
+    let value = this.get("assets");
+    return value.toStringArray();
+  }
+
+  set assets(value: Array<string | null>) {
+    this.set("assets", Value.fromStringArray(value));
+  }
+}
+
+export class WalletHourData extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save WalletHourData entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save WalletHourData entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("WalletHourData", id.toString(), this);
+  }
+
+  static load(id: string): WalletHourData | null {
+    return store.get("WalletHourData", id) as WalletHourData | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get hourStartUnix(): i32 {
+    let value = this.get("hourStartUnix");
+    return value.toI32();
+  }
+
+  set hourStartUnix(value: i32) {
+    this.set("hourStartUnix", Value.fromI32(value));
+  }
+
+  get basis(): Array<string | null> {
+    let value = this.get("basis");
+    return value.toStringArray();
+  }
+
+  set basis(value: Array<string | null>) {
+    this.set("basis", Value.fromStringArray(value));
+  }
+
+  get assets(): Array<string | null> {
+    let value = this.get("assets");
+    return value.toStringArray();
+  }
+
+  set assets(value: Array<string | null>) {
+    this.set("assets", Value.fromStringArray(value));
+  }
+}
+
+export class Wallet extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Wallet entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Wallet entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Wallet", id.toString(), this);
+  }
+
+  static load(id: string): Wallet | null {
+    return store.get("Wallet", id) as Wallet | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get owner(): string {
+    let value = this.get("owner");
+    return value.toString();
+  }
+
+  set owner(value: string) {
+    this.set("owner", Value.fromString(value));
+  }
+
+  get createdOn(): i32 {
+    let value = this.get("createdOn");
+    return value.toI32();
+  }
+
+  set createdOn(value: i32) {
+    this.set("createdOn", Value.fromI32(value));
+  }
+
+  get basis(): Array<string | null> {
+    let value = this.get("basis");
+    return value.toStringArray();
+  }
+
+  set basis(value: Array<string | null>) {
+    this.set("basis", Value.fromStringArray(value));
+  }
+
+  get assets(): Array<string | null> {
+    let value = this.get("assets");
+    return value.toStringArray();
+  }
+
+  set assets(value: Array<string | null>) {
+    this.set("assets", Value.fromStringArray(value));
+  }
+
+  get byDay(): string | null {
+    let value = this.get("byDay");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set byDay(value: string | null) {
+    if (value === null) {
+      this.unset("byDay");
+    } else {
+      this.set("byDay", Value.fromString(value as string));
+    }
+  }
+}

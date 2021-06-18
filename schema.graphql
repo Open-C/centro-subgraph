@@ -6,7 +6,7 @@ type ExampleEntity @entity {
 }
 
 type Asset @entity {
-  id: ID! # TokenAddress_OwnerAddress
+  id: ID! # TokenAddress_OwnerID
   address: Bytes!
   name: String
   totalVolume: BigInt!
@@ -33,4 +33,27 @@ type CentroHourData @entity {
   totalAssets: [Asset]!
   users: BigInt!
   wallets: BigInt!
+}
+
+type WalletDayData @entity {
+  id: ID! # Wallet Address + unix time stamp
+  date: Int!
+  basis: [Asset]!
+  assets: [Asset]!
+}
+
+type WalletHourData @entity {
+  id: ID! # Wallet Address + unix time stamp
+  hourStartUnix: Int!
+  basis: [Asset]!
+  assets: [Asset]!
+}
+
+type Wallet @entity {
+  id: ID! # Wallet Address
+  owner: String!
+  createdOn: Int! # Unix-time integer
+  basis: [Asset]!
+  assets: [Asset]!
+  byDay: WalletDayData
 }
