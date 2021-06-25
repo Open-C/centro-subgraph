@@ -15,17 +15,44 @@ dataSources:
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - WalletCreated
         - DepositMade
+        - MoolaDeposit
+        - MoolaWithdrawal
+        - TokenReceived
+        - UbeFarmClaimed
+        - UbeFarmDeposited
+        - UbeFarmWithdrawn
+        - UbeLiquidityAdded
+        - UbeLiquidityRemoved
+        - UbeSwap
+        - WalletCreated
         - WithdrawalMade
       abis:
         - name: EventEmitter
           file: ./abis/EventEmitter.json
       eventHandlers:
-        - event: WalletCreated(address,address,bool)
-          handler: handleWalletCreated
         - event: DepositMade(address,address,uint256)
           handler: handleDepositMade
+        - event: MoolaDeposit(address,address,uint256)
+          handler: handleMoolaDeposit
+        - event: MoolaWithdrawal(address,address,uint256)
+          handler: handleMoolaWithdrawal
+        - event: TokenReceived(address,address,uint256)
+          handler: handleTokenReceived
+        - event: UbeFarmClaimed(address,address,uint256)
+          handler: handleUbeFarmClaimed
+        - event: UbeFarmDeposited(address,address,address,uint256)
+          handler: handleUbeFarmDeposited
+        - event: UbeFarmWithdrawn(address,address,address,uint256)
+          handler: handleUbeFarmWithdrawn
+        - event: UbeLiquidityAdded(address,address,uint256)
+          handler: handleUbeLiquidityAdded
+        - event: UbeLiquidityRemoved(address,address,uint256)
+          handler: handleUbeLiquidityRemoved
+        - event: UbeSwap(address,address,address,uint256,uint256)
+          handler: handleUbeSwap
+        - event: WalletCreated(address,address,bool)
+          handler: handleWalletCreated
         - event: WithdrawalMade(address,address,uint256)
-          handler: handleWithdrawMade
+          handler: handleWithdrawalMade
       file: ./src/mapping.ts
