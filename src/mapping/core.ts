@@ -3,8 +3,15 @@ import {
   DepositMade,
   WithdrawalMade,
   WalletCreated,
+  UbeSwap,
 } from "../../generated/EventEmitter/EventEmitter";
-import { CentroData, Asset, Wallet } from "../../generated/schema";
+import {
+  CentroData,
+  Asset,
+  Wallet,
+  UbeLock,
+  Swap,
+} from "../../generated/schema";
 import { CENTRO_ADDRESS } from "./utils";
 
 function initWallet(event: WalletCreated): Wallet {
@@ -14,6 +21,17 @@ function initWallet(event: WalletCreated): Wallet {
 
   newWallet.save();
   return newWallet as Wallet;
+}
+
+function getUbeLocked(wallet: Wallet): UbeLock {
+  const id = `ubeswap-${wallet.id}`;
+  let ube = UbeLock.load(id);
+  if (ube === null) {
+    ube = new UbeLock(id);
+    wallet.locked.push(ube.id);
+    wallet.save();
+  }
+  return ube;
 }
 
 function modifyAsset(
@@ -26,6 +44,7 @@ function modifyAsset(
   if (asset == null) {
     asset = new Asset(assetId);
     asset.address = address;
+    asset.totalVolume = new BigInt(0);
     location.push(asset.id);
   }
   asset.totalVolume = callback(asset.totalVolume);
@@ -100,4 +119,21 @@ export function handleWithdrawalMade(event: WithdrawalMade): void {
 
   centroData.save();
   wallet.save();
+}
+
+export function handleSwap(event: UbeSwap): void {
+  let centroData = CentroData.load(CENTRO_ADDRESS);
+  let wallet = Wallet.load(event.params.wallet.toHexString());
+  const { tokenIn, tokenOut, amountIn, amountOut } = event.params;
+  const ube = getUbeLocked(wallet);
+  const swap: Swap = new Swap(`swap-${wallet.id}-${event.block.number}`);
+  const assetInId = `swap-${wallet.id}-${event.block.number}-${tokenIn}`;
+  const assetOutId = `swap-${wallet.id}-${event.block.number}-${tokenOut}`;
+  modifyAsset(assetInId, tokenIn, [], amountIn.plus);
+  modifyAsset(assetOutId, tokenIn, [], amountOut.plus);
+  swap.assetIn = assetInId;
+  swap.assetOut = assetOutId;
+  swap.save();
+  ube.swaps.push(swap.id);
+  ube.save();
 }
