@@ -56,4 +56,26 @@ type Wallet @entity {
   basis: [Asset]!
   assets: [Asset]!
   byDay: WalletDayData
+  locked: [ProtocolLock]!
+}
+
+interface ProtocolLock {
+  id: ID! # Protocol Name - wallet address
+  name: String!
+  assetsLocked: [Asset]!
+  assetsEarned: [Asset]!
+}
+
+type UbeLock implements ProtocolLock @entity {
+  id: ID!
+  name: String!
+  assetsLocked: [Asset]!
+  swaps: [Swap]!
+}
+
+type Swap @entity {
+  id: ID! # address-blocknumber-tok1-tok2
+  blocknumber: Int!
+  assetIn: Asset!
+  assetOut: Asset!
 }

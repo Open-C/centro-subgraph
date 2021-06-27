@@ -36,6 +36,256 @@ export class DepositMade__Params {
   }
 }
 
+export class MoolaDeposit extends ethereum.Event {
+  get params(): MoolaDeposit__Params {
+    return new MoolaDeposit__Params(this);
+  }
+}
+
+export class MoolaDeposit__Params {
+  _event: MoolaDeposit;
+
+  constructor(event: MoolaDeposit) {
+    this._event = event;
+  }
+
+  get wallet(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenDeposited(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class MoolaWithdrawal extends ethereum.Event {
+  get params(): MoolaWithdrawal__Params {
+    return new MoolaWithdrawal__Params(this);
+  }
+}
+
+export class MoolaWithdrawal__Params {
+  _event: MoolaWithdrawal;
+
+  constructor(event: MoolaWithdrawal) {
+    this._event = event;
+  }
+
+  get wallet(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenWithdrawn(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class TokenReceived extends ethereum.Event {
+  get params(): TokenReceived__Params {
+    return new TokenReceived__Params(this);
+  }
+}
+
+export class TokenReceived__Params {
+  _event: TokenReceived;
+
+  constructor(event: TokenReceived) {
+    this._event = event;
+  }
+
+  get wallet(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get token(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class UbeFarmClaimed extends ethereum.Event {
+  get params(): UbeFarmClaimed__Params {
+    return new UbeFarmClaimed__Params(this);
+  }
+}
+
+export class UbeFarmClaimed__Params {
+  _event: UbeFarmClaimed;
+
+  constructor(event: UbeFarmClaimed) {
+    this._event = event;
+  }
+
+  get wallet(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get farm(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get ubeClaimed(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class UbeFarmDeposited extends ethereum.Event {
+  get params(): UbeFarmDeposited__Params {
+    return new UbeFarmDeposited__Params(this);
+  }
+}
+
+export class UbeFarmDeposited__Params {
+  _event: UbeFarmDeposited;
+
+  constructor(event: UbeFarmDeposited) {
+    this._event = event;
+  }
+
+  get wallet(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get farm(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get lpToken(): Address {
+    return this._event.parameters[2].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+}
+
+export class UbeFarmWithdrawn extends ethereum.Event {
+  get params(): UbeFarmWithdrawn__Params {
+    return new UbeFarmWithdrawn__Params(this);
+  }
+}
+
+export class UbeFarmWithdrawn__Params {
+  _event: UbeFarmWithdrawn;
+
+  constructor(event: UbeFarmWithdrawn) {
+    this._event = event;
+  }
+
+  get wallet(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get farm(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get lpToken(): Address {
+    return this._event.parameters[2].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+}
+
+export class UbeLiquidityAdded extends ethereum.Event {
+  get params(): UbeLiquidityAdded__Params {
+    return new UbeLiquidityAdded__Params(this);
+  }
+}
+
+export class UbeLiquidityAdded__Params {
+  _event: UbeLiquidityAdded;
+
+  constructor(event: UbeLiquidityAdded) {
+    this._event = event;
+  }
+
+  get wallet(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get lpToken(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class UbeLiquidityRemoved extends ethereum.Event {
+  get params(): UbeLiquidityRemoved__Params {
+    return new UbeLiquidityRemoved__Params(this);
+  }
+}
+
+export class UbeLiquidityRemoved__Params {
+  _event: UbeLiquidityRemoved;
+
+  constructor(event: UbeLiquidityRemoved) {
+    this._event = event;
+  }
+
+  get wallet(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get lpToken(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class UbeSwap extends ethereum.Event {
+  get params(): UbeSwap__Params {
+    return new UbeSwap__Params(this);
+  }
+}
+
+export class UbeSwap__Params {
+  _event: UbeSwap;
+
+  constructor(event: UbeSwap) {
+    this._event = event;
+  }
+
+  get wallet(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenIn(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get tokenOut(): Address {
+    return this._event.parameters[2].value.toAddress();
+  }
+
+  get amountIn(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+
+  get amountOut(): BigInt {
+    return this._event.parameters[4].value.toBigInt();
+  }
+}
+
 export class WalletCreated extends ethereum.Event {
   get params(): WalletCreated__Params {
     return new WalletCreated__Params(this);
@@ -94,6 +344,36 @@ export class EventEmitter extends ethereum.SmartContract {
   }
 }
 
+export class ConstructorCall extends ethereum.Call {
+  get inputs(): ConstructorCall__Inputs {
+    return new ConstructorCall__Inputs(this);
+  }
+
+  get outputs(): ConstructorCall__Outputs {
+    return new ConstructorCall__Outputs(this);
+  }
+}
+
+export class ConstructorCall__Inputs {
+  _call: ConstructorCall;
+
+  constructor(call: ConstructorCall) {
+    this._call = call;
+  }
+
+  get _store(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class ConstructorCall__Outputs {
+  _call: ConstructorCall;
+
+  constructor(call: ConstructorCall) {
+    this._call = call;
+  }
+}
+
 export class EmitDepositMadeCall extends ethereum.Call {
   get inputs(): EmitDepositMadeCall__Inputs {
     return new EmitDepositMadeCall__Inputs(this);
@@ -128,6 +408,364 @@ export class EmitDepositMadeCall__Outputs {
   _call: EmitDepositMadeCall;
 
   constructor(call: EmitDepositMadeCall) {
+    this._call = call;
+  }
+}
+
+export class EmitMoolaDepositCall extends ethereum.Call {
+  get inputs(): EmitMoolaDepositCall__Inputs {
+    return new EmitMoolaDepositCall__Inputs(this);
+  }
+
+  get outputs(): EmitMoolaDepositCall__Outputs {
+    return new EmitMoolaDepositCall__Outputs(this);
+  }
+}
+
+export class EmitMoolaDepositCall__Inputs {
+  _call: EmitMoolaDepositCall;
+
+  constructor(call: EmitMoolaDepositCall) {
+    this._call = call;
+  }
+
+  get wallet(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenDeposited(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+}
+
+export class EmitMoolaDepositCall__Outputs {
+  _call: EmitMoolaDepositCall;
+
+  constructor(call: EmitMoolaDepositCall) {
+    this._call = call;
+  }
+}
+
+export class EmitMoolaWithdrawalCall extends ethereum.Call {
+  get inputs(): EmitMoolaWithdrawalCall__Inputs {
+    return new EmitMoolaWithdrawalCall__Inputs(this);
+  }
+
+  get outputs(): EmitMoolaWithdrawalCall__Outputs {
+    return new EmitMoolaWithdrawalCall__Outputs(this);
+  }
+}
+
+export class EmitMoolaWithdrawalCall__Inputs {
+  _call: EmitMoolaWithdrawalCall;
+
+  constructor(call: EmitMoolaWithdrawalCall) {
+    this._call = call;
+  }
+
+  get wallet(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenWithdrawn(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+}
+
+export class EmitMoolaWithdrawalCall__Outputs {
+  _call: EmitMoolaWithdrawalCall;
+
+  constructor(call: EmitMoolaWithdrawalCall) {
+    this._call = call;
+  }
+}
+
+export class EmitTokenReceivedCall extends ethereum.Call {
+  get inputs(): EmitTokenReceivedCall__Inputs {
+    return new EmitTokenReceivedCall__Inputs(this);
+  }
+
+  get outputs(): EmitTokenReceivedCall__Outputs {
+    return new EmitTokenReceivedCall__Outputs(this);
+  }
+}
+
+export class EmitTokenReceivedCall__Inputs {
+  _call: EmitTokenReceivedCall;
+
+  constructor(call: EmitTokenReceivedCall) {
+    this._call = call;
+  }
+
+  get wallet(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get token(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+}
+
+export class EmitTokenReceivedCall__Outputs {
+  _call: EmitTokenReceivedCall;
+
+  constructor(call: EmitTokenReceivedCall) {
+    this._call = call;
+  }
+}
+
+export class EmitUbeFarmClaimedCall extends ethereum.Call {
+  get inputs(): EmitUbeFarmClaimedCall__Inputs {
+    return new EmitUbeFarmClaimedCall__Inputs(this);
+  }
+
+  get outputs(): EmitUbeFarmClaimedCall__Outputs {
+    return new EmitUbeFarmClaimedCall__Outputs(this);
+  }
+}
+
+export class EmitUbeFarmClaimedCall__Inputs {
+  _call: EmitUbeFarmClaimedCall;
+
+  constructor(call: EmitUbeFarmClaimedCall) {
+    this._call = call;
+  }
+
+  get wallet(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get farm(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get ubeClaimed(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+}
+
+export class EmitUbeFarmClaimedCall__Outputs {
+  _call: EmitUbeFarmClaimedCall;
+
+  constructor(call: EmitUbeFarmClaimedCall) {
+    this._call = call;
+  }
+}
+
+export class EmitUbeFarmDepositedCall extends ethereum.Call {
+  get inputs(): EmitUbeFarmDepositedCall__Inputs {
+    return new EmitUbeFarmDepositedCall__Inputs(this);
+  }
+
+  get outputs(): EmitUbeFarmDepositedCall__Outputs {
+    return new EmitUbeFarmDepositedCall__Outputs(this);
+  }
+}
+
+export class EmitUbeFarmDepositedCall__Inputs {
+  _call: EmitUbeFarmDepositedCall;
+
+  constructor(call: EmitUbeFarmDepositedCall) {
+    this._call = call;
+  }
+
+  get wallet(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get farm(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get lpToken(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+}
+
+export class EmitUbeFarmDepositedCall__Outputs {
+  _call: EmitUbeFarmDepositedCall;
+
+  constructor(call: EmitUbeFarmDepositedCall) {
+    this._call = call;
+  }
+}
+
+export class EmitUbeFarmWithdrawnCall extends ethereum.Call {
+  get inputs(): EmitUbeFarmWithdrawnCall__Inputs {
+    return new EmitUbeFarmWithdrawnCall__Inputs(this);
+  }
+
+  get outputs(): EmitUbeFarmWithdrawnCall__Outputs {
+    return new EmitUbeFarmWithdrawnCall__Outputs(this);
+  }
+}
+
+export class EmitUbeFarmWithdrawnCall__Inputs {
+  _call: EmitUbeFarmWithdrawnCall;
+
+  constructor(call: EmitUbeFarmWithdrawnCall) {
+    this._call = call;
+  }
+
+  get wallet(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get farm(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get lpToken(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+}
+
+export class EmitUbeFarmWithdrawnCall__Outputs {
+  _call: EmitUbeFarmWithdrawnCall;
+
+  constructor(call: EmitUbeFarmWithdrawnCall) {
+    this._call = call;
+  }
+}
+
+export class EmitUbeLiquidityAddedCall extends ethereum.Call {
+  get inputs(): EmitUbeLiquidityAddedCall__Inputs {
+    return new EmitUbeLiquidityAddedCall__Inputs(this);
+  }
+
+  get outputs(): EmitUbeLiquidityAddedCall__Outputs {
+    return new EmitUbeLiquidityAddedCall__Outputs(this);
+  }
+}
+
+export class EmitUbeLiquidityAddedCall__Inputs {
+  _call: EmitUbeLiquidityAddedCall;
+
+  constructor(call: EmitUbeLiquidityAddedCall) {
+    this._call = call;
+  }
+
+  get wallet(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get lpToken(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+}
+
+export class EmitUbeLiquidityAddedCall__Outputs {
+  _call: EmitUbeLiquidityAddedCall;
+
+  constructor(call: EmitUbeLiquidityAddedCall) {
+    this._call = call;
+  }
+}
+
+export class EmitUbeLiquidityRemovedCall extends ethereum.Call {
+  get inputs(): EmitUbeLiquidityRemovedCall__Inputs {
+    return new EmitUbeLiquidityRemovedCall__Inputs(this);
+  }
+
+  get outputs(): EmitUbeLiquidityRemovedCall__Outputs {
+    return new EmitUbeLiquidityRemovedCall__Outputs(this);
+  }
+}
+
+export class EmitUbeLiquidityRemovedCall__Inputs {
+  _call: EmitUbeLiquidityRemovedCall;
+
+  constructor(call: EmitUbeLiquidityRemovedCall) {
+    this._call = call;
+  }
+
+  get wallet(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get lpToken(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+}
+
+export class EmitUbeLiquidityRemovedCall__Outputs {
+  _call: EmitUbeLiquidityRemovedCall;
+
+  constructor(call: EmitUbeLiquidityRemovedCall) {
+    this._call = call;
+  }
+}
+
+export class EmitUbeSwapCall extends ethereum.Call {
+  get inputs(): EmitUbeSwapCall__Inputs {
+    return new EmitUbeSwapCall__Inputs(this);
+  }
+
+  get outputs(): EmitUbeSwapCall__Outputs {
+    return new EmitUbeSwapCall__Outputs(this);
+  }
+}
+
+export class EmitUbeSwapCall__Inputs {
+  _call: EmitUbeSwapCall;
+
+  constructor(call: EmitUbeSwapCall) {
+    this._call = call;
+  }
+
+  get wallet(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenIn(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get tokenOut(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+
+  get amountIn(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+
+  get amountOut(): BigInt {
+    return this._call.inputValues[4].value.toBigInt();
+  }
+}
+
+export class EmitUbeSwapCall__Outputs {
+  _call: EmitUbeSwapCall;
+
+  constructor(call: EmitUbeSwapCall) {
     this._call = call;
   }
 }

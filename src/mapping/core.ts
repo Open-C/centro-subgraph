@@ -3,7 +3,6 @@ import {
   DepositMade,
   WithdrawalMade,
   WalletCreated,
-  WalletCreated__Params,
 } from "../../generated/EventEmitter/EventEmitter";
 import { CentroData, Asset, Wallet } from "../../generated/schema";
 import { CENTRO_ADDRESS } from "./utils";

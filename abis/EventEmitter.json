@@ -1,5 +1,12 @@
 [
   {
+    "inputs": [
+      { "internalType": "address", "name": "_store", "type": "address" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
     "anonymous": false,
     "inputs": [
       {
@@ -22,6 +29,255 @@
       }
     ],
     "name": "DepositMade",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "wallet",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "tokenDeposited",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "MoolaDeposit",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "wallet",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "tokenWithdrawn",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "MoolaWithdrawal",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "wallet",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "TokenReceived",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "wallet",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "farm",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "ubeClaimed",
+        "type": "uint256"
+      }
+    ],
+    "name": "UbeFarmClaimed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "wallet",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "farm",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "lpToken",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "UbeFarmDeposited",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "wallet",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "farm",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "lpToken",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "UbeFarmWithdrawn",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "wallet",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "lpToken",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "UbeLiquidityAdded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "wallet",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "lpToken",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "UbeLiquidityRemoved",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "wallet",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "tokenIn",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "tokenOut",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amountIn",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amountOut",
+        "type": "uint256"
+      }
+    ],
+    "name": "UbeSwap",
     "type": "event"
   },
   {
@@ -76,21 +332,9 @@
   },
   {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "wallet",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "token",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
+      { "internalType": "address", "name": "wallet", "type": "address" },
+      { "internalType": "address", "name": "token", "type": "address" },
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
     ],
     "name": "emitDepositMade",
     "outputs": [],
@@ -99,21 +343,120 @@
   },
   {
     "inputs": [
+      { "internalType": "address", "name": "wallet", "type": "address" },
       {
         "internalType": "address",
-        "name": "user",
+        "name": "tokenDeposited",
         "type": "address"
       },
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "emitMoolaDeposit",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "wallet", "type": "address" },
       {
         "internalType": "address",
-        "name": "wallet",
+        "name": "tokenWithdrawn",
         "type": "address"
       },
-      {
-        "internalType": "bool",
-        "name": "isFirstWallet",
-        "type": "bool"
-      }
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "emitMoolaWithdrawal",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "wallet", "type": "address" },
+      { "internalType": "address", "name": "token", "type": "address" },
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "emitTokenReceived",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "wallet", "type": "address" },
+      { "internalType": "address", "name": "farm", "type": "address" },
+      { "internalType": "uint256", "name": "ubeClaimed", "type": "uint256" }
+    ],
+    "name": "emitUbeFarmClaimed",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "wallet", "type": "address" },
+      { "internalType": "address", "name": "farm", "type": "address" },
+      { "internalType": "address", "name": "lpToken", "type": "address" },
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "emitUbeFarmDeposited",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "wallet", "type": "address" },
+      { "internalType": "address", "name": "farm", "type": "address" },
+      { "internalType": "address", "name": "lpToken", "type": "address" },
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "emitUbeFarmWithdrawn",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "wallet", "type": "address" },
+      { "internalType": "address", "name": "lpToken", "type": "address" },
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "emitUbeLiquidityAdded",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "wallet", "type": "address" },
+      { "internalType": "address", "name": "lpToken", "type": "address" },
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "emitUbeLiquidityRemoved",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "wallet", "type": "address" },
+      { "internalType": "address", "name": "tokenIn", "type": "address" },
+      { "internalType": "address", "name": "tokenOut", "type": "address" },
+      { "internalType": "uint256", "name": "amountIn", "type": "uint256" },
+      { "internalType": "uint256", "name": "amountOut", "type": "uint256" }
+    ],
+    "name": "emitUbeSwap",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "user", "type": "address" },
+      { "internalType": "address", "name": "wallet", "type": "address" },
+      { "internalType": "bool", "name": "isFirstWallet", "type": "bool" }
     ],
     "name": "emitWalletCreated",
     "outputs": [],
@@ -122,21 +465,9 @@
   },
   {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "wallet",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "token",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
+      { "internalType": "address", "name": "wallet", "type": "address" },
+      { "internalType": "address", "name": "token", "type": "address" },
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
     ],
     "name": "emitWithdrawalMade",
     "outputs": [],

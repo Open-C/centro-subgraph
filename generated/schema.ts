@@ -526,4 +526,129 @@ export class Wallet extends Entity {
       this.set("byDay", Value.fromString(value as string));
     }
   }
+
+  get locked(): Array<string | null> {
+    let value = this.get("locked");
+    return value.toStringArray();
+  }
+
+  set locked(value: Array<string | null>) {
+    this.set("locked", Value.fromStringArray(value));
+  }
+}
+
+export class UbeLock extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save UbeLock entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save UbeLock entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("UbeLock", id.toString(), this);
+  }
+
+  static load(id: string): UbeLock | null {
+    return store.get("UbeLock", id) as UbeLock | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get name(): string {
+    let value = this.get("name");
+    return value.toString();
+  }
+
+  set name(value: string) {
+    this.set("name", Value.fromString(value));
+  }
+
+  get assetsLocked(): Array<string | null> {
+    let value = this.get("assetsLocked");
+    return value.toStringArray();
+  }
+
+  set assetsLocked(value: Array<string | null>) {
+    this.set("assetsLocked", Value.fromStringArray(value));
+  }
+
+  get swaps(): Array<string | null> {
+    let value = this.get("swaps");
+    return value.toStringArray();
+  }
+
+  set swaps(value: Array<string | null>) {
+    this.set("swaps", Value.fromStringArray(value));
+  }
+}
+
+export class Swap extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Swap entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Swap entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Swap", id.toString(), this);
+  }
+
+  static load(id: string): Swap | null {
+    return store.get("Swap", id) as Swap | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get blocknumber(): i32 {
+    let value = this.get("blocknumber");
+    return value.toI32();
+  }
+
+  set blocknumber(value: i32) {
+    this.set("blocknumber", Value.fromI32(value));
+  }
+
+  get assetIn(): string {
+    let value = this.get("assetIn");
+    return value.toString();
+  }
+
+  set assetIn(value: string) {
+    this.set("assetIn", Value.fromString(value));
+  }
+
+  get assetOut(): string {
+    let value = this.get("assetOut");
+    return value.toString();
+  }
+
+  set assetOut(value: string) {
+    this.set("assetOut", Value.fromString(value));
+  }
 }
