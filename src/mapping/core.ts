@@ -102,19 +102,19 @@ export function handleWithdrawalMade(event: WithdrawalMade): void {
     `${CENTRO_ADDRESS}_${tokenAddr.toHexString()}`,
     tokenAddr,
     centroData.totalAssets,
-    tokenAmount.minus
+    (total: BigInt) => total.minus(tokenAmount)
   );
   modifyAsset(
     `${wallet.id}_${tokenAddr.toHexString()}_total`,
     tokenAddr,
     centroData.totalAssets,
-    tokenAmount.minus
+    (total: BigInt) => total.minus(tokenAmount)
   );
   modifyAsset(
     `${wallet.id}_${tokenAddr.toHexString()}_basis`,
     tokenAddr,
     wallet.basis,
-    tokenAmount.minus
+    (total: BigInt) => total.minus(tokenAmount)
   );
 
   centroData.save();
@@ -129,8 +129,21 @@ export function handleSwap(event: UbeSwap): void {
   const swap: Swap = new Swap(`swap-${wallet.id}-${event.block.number}`);
   const assetInId = `swap-${wallet.id}-${event.block.number}-${tokenIn}`;
   const assetOutId = `swap-${wallet.id}-${event.block.number}-${tokenOut}`;
+
   modifyAsset(assetInId, tokenIn, [], amountIn.plus);
   modifyAsset(assetOutId, tokenIn, [], amountOut.plus);
+  modifyAsset(
+    `${wallet.id}-${tokenIn.toHexString()}`,
+    tokenIn,
+    wallet.assets,
+    (total: BigInt) => total.minus(amountIn)
+  );
+  modifyAsset(
+    `${wallet.id}-${tokenOut.toHexString()}`,
+    tokenOut,
+    wallet.assets,
+    amountOut.plus
+  );
   swap.assetIn = assetInId;
   swap.assetOut = assetOutId;
   swap.save();
