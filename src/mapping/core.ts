@@ -4,6 +4,11 @@ import {
   WithdrawalMade,
   WalletCreated,
   UbeSwap,
+  UbeFarmClaimed,
+  UbeFarmDeposited,
+  UbeFarmWithdrawn,
+  UbeLiquidityAdded,
+  UbeLiquidityRemoved,
 } from "../../generated/EventEmitter/EventEmitter";
 import {
   CentroData,
@@ -12,7 +17,7 @@ import {
   UbeLock,
   Swap,
 } from "../../generated/schema";
-import { CENTRO_ADDRESS } from "./utils";
+import { CENTRO_ADDRESS, UBE_ADDRESS } from "./utils";
 
 function initWallet(event: WalletCreated): Wallet {
   const { wallet: address, user: owner } = event.params;
@@ -144,9 +149,112 @@ export function handleSwap(event: UbeSwap): void {
     wallet.assets,
     amountOut.plus
   );
+  modifyAsset(
+    `${CENTRO_ADDRESS}_${tokenIn.toHexString()}`,
+    tokenIn,
+    centroData.totalAssets,
+    (total: BigInt) => total.minus(amountIn)
+  );
+  modifyAsset(
+    `${CENTRO_ADDRESS}_${tokenOut.toHexString()}`,
+    tokenOut,
+    centroData.totalAssets,
+    amountOut.plus
+  );
+
   swap.assetIn = assetInId;
   swap.assetOut = assetOutId;
+
   swap.save();
   ube.swaps.push(swap.id);
   ube.save();
+}
+
+export function handleUbeFarmDeposited(event: UbeFarmDeposited) {
+  let centroData = CentroData.load(CENTRO_ADDRESS);
+  let wallet = Wallet.load(event.params.wallet.toHexString());
+  const { amount, lpToken, farm } = event.params;
+  const ube = getUbeLocked(wallet);
+
+  modifyAsset(
+    `${wallet.id}-${lpToken.toHexString()}`,
+    lpToken,
+    wallet.assets,
+    (total: BigInt) => total.minus(amount)
+  );
+  modifyAsset(
+    `${wallet.id}-${farm.toHexString()}`,
+    farm,
+    wallet.assets,
+    amount.plus
+  );
+  modifyAsset(
+    `${CENTRO_ADDRESS}_${lpToken.toHexString()}`,
+    lpToken,
+    centroData.totalAssets,
+    (total: BigInt) => total.minus(amount)
+  );
+  modifyAsset(
+    `${CENTRO_ADDRESS}_${farm.toHexString()}`,
+    farm,
+    centroData.totalAssets,
+    amount.plus
+  );
+  wallet.save();
+  centroData.save();
+}
+
+function handleUbeFarmWithdrawal(event: UbeFarmWithdrawn) {
+  let centroData = CentroData.load(CENTRO_ADDRESS);
+  let wallet = Wallet.load(event.params.wallet.toHexString());
+  const { amount, lpToken, farm } = event.params;
+  const ube = getUbeLocked(wallet);
+
+  modifyAsset(
+    `${wallet.id}-${farm.toHexString()}`,
+    farm,
+    wallet.assets,
+    (total: BigInt) => total.minus(amount)
+  );
+  modifyAsset(
+    `${wallet.id}-${lpToken.toHexString()}`,
+    lpToken,
+    wallet.assets,
+    amount.plus
+  );
+  modifyAsset(
+    `${CENTRO_ADDRESS}_${farm.toHexString()}`,
+    farm,
+    centroData.totalAssets,
+    (total: BigInt) => total.minus(amount)
+  );
+  modifyAsset(
+    `${CENTRO_ADDRESS}_${lpToken.toHexString()}`,
+    lpToken,
+    centroData.totalAssets,
+    amount.plus
+  );
+  wallet.save();
+  centroData.save();
+}
+
+export function handleUbeFarmClaimed(event: UbeFarmClaimed) {
+  let centroData = CentroData.load(CENTRO_ADDRESS);
+  let wallet = Wallet.load(event.params.wallet.toHexString());
+  const { ubeClaimed: amount, farm: tokenEarned } = event.params;
+  modifyAsset(
+    `${CENTRO_ADDRESS}_${tokenEarned}`,
+    tokenEarned,
+    centroData.totalAssets,
+    amount.plus
+  );
+  modifyAsset(
+    `${wallet.id}-${tokenEarned.toHexString()}`,
+    tokenEarned,
+    wallet.assets,
+    amount.plus
+  );
+  wallet.save();
+  centroData.save();
+  const ube = getUbeLocked(wallet);
 }
